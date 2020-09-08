@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './posts.dart';
+
+import 'routes/posts.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Page1(),
+      home: Posts(),
     );
   }
 }

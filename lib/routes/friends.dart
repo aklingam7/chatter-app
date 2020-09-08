@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Page2 extends StatelessWidget {
+class Friends extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

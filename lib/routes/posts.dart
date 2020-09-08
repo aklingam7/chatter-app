@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import './friends.dart';
 
-class Page1 extends StatelessWidget {
+import 'friends.dart';
+import 'new_post.dart';
+
+class Posts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +35,7 @@ class Page1 extends StatelessWidget {
                   title: Text('Friends'),
                   onTap: () async {
                     var navigationResult = await Navigator.push(
-                        context, new MaterialPageRoute(builder: (context) => Page2()));
+                        context, new MaterialPageRoute(builder: (context) => Friends()));
 
                     if (navigationResult == 'from_back') {
                       Navigator.pop(context);
@@ -53,7 +55,19 @@ class Page1 extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
+          var navigationResult = await Navigator.push(
+              context, new MaterialPageRoute(builder: (context) => NewPost()));
 
+          //if (navigationResult == 'from_back') {
+            //Navigator.pop(context);
+          //} else if (navigationResult == 'from_button') {
+            //Navigator.pop(context);
+            //showDialog(
+            //context: context,
+            //builder: (context) => AlertDialog(
+            //title: Text('Navigation from button'),
+            //));
+          //}
         },
       ),
       body: Container(

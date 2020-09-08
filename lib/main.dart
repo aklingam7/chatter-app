@@ -1,44 +1,17 @@
 import 'package:flutter/material.dart';
+import './posts.dart';
 
-void main() {
-  runApp(FirstRoute());
-}
+void main() => runApp(MyApp());
 
-class FirstRoute extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('First Route'),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
-      body: Center(
-        child: RaisedButton(
-          child: Text('Open route'),
-          onPressed: () {
-            // Navigate to second route when tapped.
-            
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class SecondRoute extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Second Route"),
-      ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            // Navigate back to first route when tapped.
-          },
-          child: Text('Go back!'),
-        ),
-      ),
+      home: Page1(),
     );
   }
 }

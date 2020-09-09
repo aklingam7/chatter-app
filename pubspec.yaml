@@ -48,6 +48,7 @@ flutter:
   assets:
      - images/Avatar/Avatar1.jpg
      - images/Avatar/Avatar2.jpg
+     - images/TagHelp.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

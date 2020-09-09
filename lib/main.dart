@@ -46,8 +46,18 @@ List<Map<String, Object>> _addTags(List<Map<String, Object>> usersWithoutTags) {
 }
 
 var usersWithoutTags = [
-  {'name': "Aditya L", 'tag': "", 'friends': []},
-  {'name': "A Friend", 'tag': "", 'friends': []},
+  {
+    'name': "Aditya L",
+    'tag': "",
+    'image': Image.asset('images/Avatar/Avatar1.jpg'),
+    'friends': <String>[]
+  },
+  {
+    'name': "A Friend",
+    'tag': "",
+    'image': Image.asset('images/Avatar/Avatar2.jpg'),
+    'friends': <String>[]
+  },
 ];
 
 var users = _addTags(usersWithoutTags);

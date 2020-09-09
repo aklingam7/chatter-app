@@ -54,7 +54,15 @@ class _PostsState extends State<Posts> {
                       ),
                     ],
                   ),
+                  Column(
+                    children: <Widget>[
+                      Text(userNames[currentUser]),
+                      Text(userTags[currentUser]),
+                    ],
+                    //crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
                 ],
+                crossAxisAlignment: CrossAxisAlignment.start,
               ),
               decoration: BoxDecoration(
                 color: Colors.blue,

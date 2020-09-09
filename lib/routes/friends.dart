@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../main.dart';
+
 class Friends extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()async {
-          _popNavigationWithResult(context, 'from_back');
-          return false;
-        },
+      onWillPop: () async {
+        _popNavigationWithResult(context, 'from_back');
+        return false;
+      },
       child: Scaffold(
         appBar: AppBar(title: Text('Friends')),
         drawer: Drawer(
-
           // Add a ListView to the drawer. This ensures the user can scroll
           // through the options in the drawer if there isn't enough vertical
           // space to fit everything.
@@ -43,12 +44,9 @@ class Friends extends StatelessWidget {
               ),
             ],
           ),
-
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-
-          },
+          onPressed: () {},
         ),
         body: Container(
           child: Center(

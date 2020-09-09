@@ -43,22 +43,25 @@ class Friend extends StatelessWidget {
           backgroundImage: _tag2Img().image,
           radius: 35.0,
         ),
-        Column(
-          children: [
-            Text(
-              _tag2Name(),
-              style: TextStyle(
-                fontSize: 20,
+        Padding(
+          padding: EdgeInsets.only(left: 10),
+          child: Column(
+            children: [
+              Text(
+                _tag2Name(),
+                style: TextStyle(
+                  fontSize: 20,
+                ),
               ),
-            ),
-            Text(
-              userTag,
-              style: TextStyle(
-                fontSize: 15,
-                fontStyle: FontStyle.italic,
+              Text(
+                userTag,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

@@ -48,6 +48,12 @@ flutter:
   assets:
      - images/Avatar/Avatar1.jpg
      - images/Avatar/Avatar2.jpg
+     - images/Avatar/Avatar3.jpg
+     - images/Avatar/Avatar4.jpg
+     - images/Avatar/Avatar5.jpg
+     - images/Avatar/Avatar6.jpg
+     - images/Avatar/Avatar7.jpg
+     - images/Avatar/Avatar8.jpg
      - images/TagHelp.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

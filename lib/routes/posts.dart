@@ -43,7 +43,7 @@ class _PostsState extends State<Posts> {
                     children: <Widget>[
                       CircleAvatar(
                         backgroundImage:
-                            currentUser == 0 ? avatar1.image : avatar2.image,
+                            (users[currentUser]['image'] as Image).image,
                         radius: 35.0,
                       ),
                       Spacer(),

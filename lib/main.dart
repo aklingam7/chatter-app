@@ -58,14 +58,50 @@ var usersWithoutTags = [
     'image': Image.asset('images/Avatar/Avatar2.jpg'),
     'friends': <String>[]
   },
+  {
+    'name': "Nice Guy",
+    'tag': "",
+    'image': Image.asset('images/Avatar/Avatar3.jpg'),
+    'friends': <String>[]
+  },
+  {
+    'name': "Hello World",
+    'tag': "",
+    'image': Image.asset('images/Avatar/Avatar4.jpg'),
+    'friends': <String>[]
+  },
+  {
+    'name': "Another Friend",
+    'tag': "",
+    'image': Image.asset('images/Avatar/Avatar5.jpg'),
+    'friends': <String>[]
+  },
+  {
+    'name': " A Good Boy",
+    'tag': "",
+    'image': Image.asset('images/Avatar/Avatar6.jpg'),
+    'friends': <String>[]
+  },
+  {
+    'name': "An Unnamed Person",
+    'tag': "",
+    'image': Image.asset('images/Avatar/Avatar7.jpg'),
+    'friends': <String>[]
+  },
+  {
+    'name': "Bob the Builder",
+    'tag': "",
+    'image': Image.asset('images/Avatar/Avatar8.jpg'),
+    'friends': <String>[]
+  },
 ];
 
 var users = _addTags(usersWithoutTags);
 
 var currentUser = 0;
 
-var avatar1 = Image.asset('images/Avatar/Avatar1.jpg');
-var avatar2 = Image.asset('images/Avatar/Avatar2.jpg');
+//var avatar1 = Image.asset('images/Avatar/Avatar1.jpg');
+//var avatar2 = Image.asset('images/Avatar/Avatar2.jpg');
 
 class MyApp extends StatelessWidget {
   @override

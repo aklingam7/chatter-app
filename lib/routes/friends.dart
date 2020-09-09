@@ -76,9 +76,8 @@ class _FriendsState extends State<Friends> {
                       Row(
                         children: <Widget>[
                           CircleAvatar(
-                            backgroundImage: currentUser == 0
-                                ? avatar1.image
-                                : avatar2.image,
+                            backgroundImage:
+                                (users[currentUser]['image'] as Image).image,
                             radius: 35.0,
                           ),
                           Spacer(),

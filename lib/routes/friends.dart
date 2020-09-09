@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../main.dart';
+import 'posts.dart';
 
-class Friends extends StatelessWidget {
+class Friends extends StatefulWidget {
+  @override
+  _FriendsState createState() => _FriendsState();
+}
+
+class _FriendsState extends State<Friends> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -21,7 +27,61 @@ class Friends extends StatelessWidget {
             padding: EdgeInsets.zero,
             children: <Widget>[
               DrawerHeader(
-                child: Text('Chatter'),
+                child: Column(
+                  children: [
+                    Spacer(),
+                    Row(
+                      children: <Widget>[
+                        CircleAvatar(
+                          backgroundImage:
+                              currentUser == 0 ? avatar1.image : avatar2.image,
+                          radius: 35.0,
+                        ),
+                        Spacer(),
+                        FloatingActionButton(
+                          heroTag: "btn3",
+                          child: Icon(Posts.swap),
+                          //width: 100,
+                          onPressed: () => {
+                            if ((currentUser + 1) != userNames.length)
+                              {
+                                setState(() {
+                                  currentUser += 1;
+                                })
+                              }
+                            else
+                              {
+                                setState(() {
+                                  currentUser = 0;
+                                })
+                              }
+                          },
+                        ),
+                      ],
+                    ),
+                    Spacer(),
+                    Container(
+                      margin: EdgeInsets.only(left: 5),
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            userNames[currentUser],
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Text(
+                            userTags[currentUser],
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        ],
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                      ),
+                    ),
+                  ],
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.blue,
                 ),
@@ -46,6 +106,7 @@ class Friends extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          heroTag: "btn4",
           onPressed: () {},
         ),
         body: Container(

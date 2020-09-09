@@ -32,6 +32,9 @@ var userTags = _createUserTags(userNames);
 
 var currentUser = 0;
 
+var avatar1 = Image.asset('images/Avatar/Avatar1.jpg');
+var avatar2 = Image.asset('images/Avatar/Avatar2.jpg');
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

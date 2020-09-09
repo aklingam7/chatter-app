@@ -30,11 +30,17 @@ class _PostsState extends State<Posts> {
             DrawerHeader(
               child: Column(
                 children: [
+                  Spacer(),
                   Row(
                     children: <Widget>[
-                      Text(userNames[currentUser]),
+                      CircleAvatar(
+                        backgroundImage:
+                            currentUser == 0 ? avatar1.image : avatar2.image,
+                        radius: 35.0,
+                      ),
                       Spacer(),
                       FloatingActionButton(
+                        heroTag: "btn1",
                         child: Icon(Posts.swap),
                         //width: 100,
                         onPressed: () => {
@@ -54,12 +60,25 @@ class _PostsState extends State<Posts> {
                       ),
                     ],
                   ),
-                  Column(
-                    children: <Widget>[
-                      Text(userNames[currentUser]),
-                      Text(userTags[currentUser]),
-                    ],
-                    //crossAxisAlignment: CrossAxisAlignment.start,
+                  Spacer(),
+                  Container(
+                    margin: EdgeInsets.only(left: 5),
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          userNames[currentUser],
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Text(
+                          userTags[currentUser],
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ],
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                    ),
                   ),
                 ],
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,6 +117,7 @@ class _PostsState extends State<Posts> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: "btn2",
         child: Icon(Posts.add),
         onPressed: () async {
           var navigationResult = await Navigator.push(

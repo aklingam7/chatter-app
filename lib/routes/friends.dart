@@ -39,7 +39,7 @@ class _FriendsState extends State<Friends> {
                           child: Icon(Posts.swap),
                           //width: 100,
                           onPressed: () => {
-                            if ((currentUser + 1) != userNames.length)
+                            if ((currentUser + 1) != users.length)
                               {
                                 setState(() {
                                   currentUser += 1;
@@ -61,11 +61,11 @@ class _FriendsState extends State<Friends> {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            userNames[currentUser],
+                            users[currentUser]['name'],
                             style: TextStyle(fontSize: 20),
                           ),
                           Text(
-                            userTags[currentUser],
+                            users[currentUser]['tag'],
                             style: TextStyle(
                               fontSize: 15,
                               fontStyle: FontStyle.italic,

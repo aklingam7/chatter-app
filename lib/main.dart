@@ -6,29 +6,47 @@ import 'routes/posts.dart';
 
 void main() => runApp(MyApp());
 
-List<String> _createUserTags(List<String> userNames) {
+List<Map<String, Object>> _addTags(List<Map<String, Object>> usersWithoutTags) {
   var rng = new Random();
-  List<String> lclUserTags = userNames.map((x) => "").toList();
-  for (var i = 0; i < userNames.length; i++) {
-    while (true) {
-      lclUserTags[i] = "";
-      lclUserTags[i] = lclUserTags[i] + '#';
-      lclUserTags[i] = lclUserTags[i] + rng.nextInt(10).toString();
-      lclUserTags[i] = lclUserTags[i] + rng.nextInt(10).toString();
-      lclUserTags[i] = lclUserTags[i] + rng.nextInt(10).toString();
-      lclUserTags[i] = lclUserTags[i] + rng.nextInt(10).toString();
-      lclUserTags[i] = lclUserTags[i] + rng.nextInt(10).toString();
-      lclUserTags[i] = lclUserTags[i] + rng.nextInt(10).toString();
-      if (lclUserTags.indexOf(lclUserTags[i]) == i) {
-        break;
+  var users = usersWithoutTags;
+  bool repeat;
+  for (var i = 0; i < users.length; i++) {
+    repeat = true;
+    while (repeat) {
+      users[i]['tag'] = (users[i]['tag'] as String) + '#';
+      users[i]['tag'] =
+          (users[i]['tag'] as String) + rng.nextInt(10).toString();
+      users[i]['tag'] =
+          (users[i]['tag'] as String) + rng.nextInt(10).toString();
+      users[i]['tag'] =
+          (users[i]['tag'] as String) + rng.nextInt(10).toString();
+      users[i]['tag'] =
+          (users[i]['tag'] as String) + rng.nextInt(10).toString();
+      users[i]['tag'] =
+          (users[i]['tag'] as String) + rng.nextInt(10).toString();
+      users[i]['tag'] =
+          (users[i]['tag'] as String) + rng.nextInt(10).toString();
+      for (var j in users) {
+        if (i != users.indexOf(j)) {
+          if (j['tag'] == users[i]['tag']) {
+            users[i]['tag'] = "";
+            break;
+          }
+        } else {
+          repeat = false;
+        }
       }
     }
   }
-  return lclUserTags;
+  return users;
 }
 
-var userNames = ["Aditya L", "A Friend"];
-var userTags = _createUserTags(userNames);
+var usersWithoutTags = [
+  {'name': "Aditya L", 'tag': "", 'friends': []},
+  {'name': "A Friend", 'tag': "", 'friends': []},
+];
+
+var users = _addTags(usersWithoutTags);
 
 var currentUser = 0;
 

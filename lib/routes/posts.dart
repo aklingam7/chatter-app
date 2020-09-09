@@ -1,14 +1,20 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 
+import '../main.dart';
 import 'friends.dart';
 import 'new_post.dart';
 
-class Posts extends StatelessWidget {
-  List _createUserTags (List userNames) {}
-  final userNames = ["Aditya L", "A Friend"];
-  final userTag = "";
+class Posts extends StatefulWidget {
   static const IconData add = IconData(0xe145, fontFamily: 'MaterialIcons');
+  static const IconData swap = IconData(59604, fontFamily: 'MaterialIcons');
 
+  @override
+  _PostsState createState() => _PostsState();
+}
+
+class _PostsState extends State<Posts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,9 +28,32 @@ class Posts extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Row(
-                children: <Widget>[
-                  Text(userNames[0]),
+              child: Column(
+                children: [
+                  Row(
+                    children: <Widget>[
+                      Text(userNames[currentUser]),
+                      Spacer(),
+                      FloatingActionButton(
+                        child: Icon(Posts.swap),
+                        //width: 100,
+                        onPressed: () => {
+                          if ((currentUser + 1) != userNames.length)
+                            {
+                              setState(() {
+                                currentUser += 1;
+                              })
+                            }
+                          else
+                            {
+                              setState(() {
+                                currentUser = 0;
+                              })
+                            }
+                        },
+                      ),
+                    ],
+                  ),
                 ],
               ),
               decoration: BoxDecoration(
@@ -61,7 +90,7 @@ class Posts extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(add),
+        child: Icon(Posts.add),
         onPressed: () async {
           var navigationResult = await Navigator.push(
               context, new MaterialPageRoute(builder: (context) => NewPost()));

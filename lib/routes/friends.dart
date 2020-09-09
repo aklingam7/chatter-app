@@ -252,6 +252,11 @@ class _FriendsState extends State<Friends> {
                                               (users[currentUser]['friends']
                                                       as List<String>)
                                                   .add(tagFieldController.text);
+                                              (users[users.indexOf(k)]
+                                                          ['friends']
+                                                      as List<String>)
+                                                  .add(users[currentUser]
+                                                      ['tag']);
                                               exists = true;
                                               Navigator.pop(context);
                                               showDialog(

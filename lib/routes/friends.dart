@@ -9,6 +9,9 @@ class Friends extends StatefulWidget {
 }
 
 class _FriendsState extends State<Friends> {
+  static const IconData add_friend_icon =
+      IconData(59376, fontFamily: 'MaterialIcons');
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -17,7 +20,17 @@ class _FriendsState extends State<Friends> {
         return false;
       },
       child: Scaffold(
-        appBar: AppBar(title: Text('Friends')),
+        appBar: AppBar(
+          title: Text('Friends'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(info_icon),
+              onPressed: () {
+                null;
+              },
+            ),
+          ],
+        ),
         drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
@@ -36,7 +49,7 @@ class _FriendsState extends State<Friends> {
                         Spacer(),
                         FloatingActionButton(
                           heroTag: "btn3",
-                          child: Icon(Posts.swap),
+                          child: Icon(Posts.swap_icon),
                           //width: 100,
                           onPressed: () => {
                             if ((currentUser + 1) != users.length)
@@ -83,6 +96,7 @@ class _FriendsState extends State<Friends> {
                 ),
               ),
               ListTile(
+                leading: Icon(posts_icon),
                 title: Text('Posts'),
                 onTap: () {
                   Navigator.pop(context);
@@ -90,6 +104,7 @@ class _FriendsState extends State<Friends> {
                 },
               ),
               ListTile(
+                leading: Icon(friends_icon),
                 title: Text('Friends'),
                 onTap: () {
                   Navigator.pop(context);
@@ -101,6 +116,7 @@ class _FriendsState extends State<Friends> {
         floatingActionButton: FloatingActionButton(
           heroTag: "btn4",
           onPressed: () {},
+          child: Icon(add_friend_icon),
         ),
         body: Container(
           child: Center(

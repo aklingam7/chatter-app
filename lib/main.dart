@@ -6,6 +6,10 @@ import 'routes/posts.dart';
 
 void main() => runApp(MyApp());
 
+const IconData posts_icon = IconData(58336, fontFamily: 'MaterialIcons');
+const IconData friends_icon = IconData(59375, fontFamily: 'MaterialIcons');
+const IconData info_icon = IconData(59534, fontFamily: 'MaterialIcons');
+
 List<Map<String, Object>> _addTags(List<Map<String, Object>> usersWithoutTags) {
   var rng = new Random();
   var users = usersWithoutTags;

@@ -7,8 +7,10 @@ import 'friends.dart';
 import 'new_post.dart';
 
 class Posts extends StatefulWidget {
-  static const IconData add = IconData(0xe145, fontFamily: 'MaterialIcons');
-  static const IconData swap = IconData(59604, fontFamily: 'MaterialIcons');
+  static const IconData add_icon =
+      IconData(0xe145, fontFamily: 'MaterialIcons');
+  static const IconData swap_icon =
+      IconData(59604, fontFamily: 'MaterialIcons');
 
   @override
   _PostsState createState() => _PostsState();
@@ -18,7 +20,17 @@ class _PostsState extends State<Posts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Posts')),
+      appBar: AppBar(
+        title: Text('Posts'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(info_icon),
+            onPressed: () {
+              null;
+            },
+          ),
+        ],
+      ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -37,7 +49,7 @@ class _PostsState extends State<Posts> {
                       Spacer(),
                       FloatingActionButton(
                         heroTag: "btn1",
-                        child: Icon(Posts.swap),
+                        child: Icon(Posts.swap_icon),
                         //width: 100,
                         onPressed: () => {
                           if ((currentUser + 1) != users.length)
@@ -84,12 +96,14 @@ class _PostsState extends State<Posts> {
               ),
             ),
             ListTile(
+              leading: Icon(posts_icon),
               title: Text('Posts'),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
+              leading: Icon(friends_icon),
               title: Text('Friends'),
               onTap: () async {
                 var navigationResult = await Navigator.push(context,
@@ -97,8 +111,10 @@ class _PostsState extends State<Posts> {
 
                 if (navigationResult == 'from_back') {
                   Navigator.pop(context);
+                  setState(() {});
                 } else if (navigationResult == 'from_button') {
                   Navigator.pop(context);
+                  setState(() {});
                 }
               },
             ),
@@ -107,7 +123,7 @@ class _PostsState extends State<Posts> {
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: "btn2",
-        child: Icon(Posts.add),
+        child: Icon(Posts.add_icon),
         onPressed: () async {
           var navigationResult = await Navigator.push(
               context, new MaterialPageRoute(builder: (context) => NewPost()));

@@ -47,10 +47,11 @@ class NewPost extends StatelessWidget {
               {
                 'date-time': dt,
                 'text': ptFieldController.text,
-                //'image': ,
+                'image': MyImagePickerState.postImage,
               },
             );
             setState(() {});
+            MyImagePickerState.postImage = null;
             Navigator.pop(context);
           } else {
             showDialog(

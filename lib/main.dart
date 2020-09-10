@@ -2,13 +2,24 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import 'package:splashscreen/splashscreen.dart';
+
 import 'routes/posts.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(new MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: new MySplashscreen(),
+  ));
+}
+//void main() => runApp(MySplashscreen());
+//void main() => runApp(MyApp());
 
 const IconData posts_icon = IconData(58336, fontFamily: 'MaterialIcons');
 const IconData friends_icon = IconData(59375, fontFamily: 'MaterialIcons');
 const IconData info_icon = IconData(59534, fontFamily: 'MaterialIcons');
+
+Image logo = Image.asset('images/Logo.png');
 
 List<Map<String, Object>> _addTags(List<Map<String, Object>> usersWithoutTags) {
   var rng = new Random();
@@ -111,10 +122,35 @@ var currentUser = 0;
 //var avatar1 = Image.asset('images/Avatar/Avatar1.jpg');
 //var avatar2 = Image.asset('images/Avatar/Avatar2.jpg');
 
+class MySplashscreen extends StatefulWidget {
+  @override
+  _MySplashscreenState createState() => new _MySplashscreenState();
+}
+
+class _MySplashscreenState extends State<MySplashscreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SplashScreen(
+        seconds: 5,
+        navigateAfterSeconds: new MyApp(),
+        title: new Text(
+          'Chatter',
+          style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0),
+        ),
+        image: logo,
+        backgroundColor: Colors.white,
+        styleTextUnderTheLoader: new TextStyle(),
+        photoSize: 65.0,
+        onClick: () => print("Flutter Egypt"),
+        loaderColor: Colors.blue);
+  }
+}
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,

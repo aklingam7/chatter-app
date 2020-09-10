@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:core';
+import 'dart:io';
 
 import '../main.dart';
 
@@ -11,6 +12,7 @@ class Post extends StatelessWidget {
   String _userName;
   Image _avatar;
   String _postText;
+  File _image;
   String _time;
   String _date;
 
@@ -29,6 +31,7 @@ class Post extends StatelessWidget {
     this._userName = _userMap['name'];
     this._avatar = _userMap['image'];
     this._postText = _userMap['posts'][_postIndex]['text'];
+    this._image = _userMap['posts'][_postIndex]['image'];
     this._date = (_userMap['posts'][_postIndex]['date-time'] as DateTime)
             .day
             .toString() +
@@ -123,21 +126,47 @@ class Post extends StatelessWidget {
               width: double.infinity,
               padding: EdgeInsets.all(10),
               child: Container(
-                  padding: EdgeInsets.all(8),
-                  decoration: ShapeDecoration(
-                    color: Color.fromARGB(90, 210, 207, 200),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
+                padding: EdgeInsets.all(8),
+                decoration: ShapeDecoration(
+                  color: Color.fromARGB(90, 210, 207, 200),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  child: Text(
-                    _postText,
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontSize: 17,
-                    ),
-                  )),
-            )
+                ),
+                child: Column(
+                  children: (_image != null)
+                      ? [
+                          Text(
+                            _postText,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 17,
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(6),
+                            child: Image.file(_image),
+                            decoration: ShapeDecoration(
+                              color: Color.fromARGB(90, 205, 201, 195),
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(7)),
+                              ),
+                            ),
+                          )
+                        ]
+                      : [
+                          Text(
+                            _postText,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 17,
+                            ),
+                          ),
+                        ],
+                ),
+              ),
+            ),
           ],
         ),
       ),

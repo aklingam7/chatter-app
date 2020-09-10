@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import '../main.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 
@@ -18,51 +20,78 @@ class MyImagePicker extends StatefulWidget {
 }
 
 class MyImagePickerState extends State {
+  static IconData camera_icon = IconData(58288, fontFamily: 'MaterialIcons');
+  static IconData gallery_icon = IconData(57937, fontFamily: 'MaterialIcons');
+
   File imageURI;
+  static File postImage;
 
   Future getImageFromCamera() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
 
-    setState(() {
-      imageURI = image;
-    });
+    setState(
+      () {
+        imageURI = image;
+        postImage = imageURI;
+      },
+    );
   }
 
   Future getImageFromGallery() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      imageURI = image;
-    });
+    setState(
+      () {
+        imageURI = image;
+        postImage = imageURI;
+      },
+    );
   }
 
   Widget build(BuildContext context) {
     return Center(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
           imageURI == null
-              ? Text('No image selected.')
+              ? Container(
+                  padding: EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(90, 227, 226, 219),
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text('No image selected.'),
+                )
               : Image.file(imageURI,
                   width: 300, height: 200, fit: BoxFit.cover),
-          Container(
-              margin: EdgeInsets.only(left: 0, top: 30, right: 0, bottom: 20),
-              child: RaisedButton(
-                onPressed: () => getImageFromCamera(),
-                child: Text('Click Here To Select Image From Camera'),
-                textColor: Colors.white,
-                color: Colors.green,
-                padding: EdgeInsets.all(12),
-              )),
-          Container(
-              margin: EdgeInsets.all(0),
-              child: RaisedButton(
-                onPressed: () => getImageFromGallery(),
-                child: Text('Click Here To Select Image From Gallery'),
-                textColor: Colors.white,
-                color: Colors.green,
-                padding: EdgeInsets.all(12),
-              ))
-        ]));
+          Padding(padding: EdgeInsets.all(10)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.all(5),
+                child: FloatingActionButton(
+                  onPressed: () => getImageFromCamera(),
+                  child: Icon(camera_icon),
+                  heroTag: "btn6",
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(5),
+                child: FloatingActionButton(
+                  onPressed: () => getImageFromGallery(),
+                  child: Icon(gallery_icon),
+                  heroTag: "btn7",
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

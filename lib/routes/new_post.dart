@@ -40,7 +40,7 @@ class NewPost extends StatelessWidget {
           if (ptFieldController.text.length != 0) {
             (users[currentUser]['posts'] as List<Map>).add(
               {
-                'date': dt,
+                'date-time': dt,
                 'text': ptFieldController.text,
                 //'image': ,
               },

@@ -37,33 +37,48 @@ class Friend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CircleAvatar(
-          backgroundImage: _tag2Img().image,
-          radius: 35.0,
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 10),
-          child: Column(
-            children: [
-              Text(
-                _tag2Name(),
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-              Text(
-                userTag,
-                style: TextStyle(
-                  fontSize: 15,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ],
+    return Container(
+      padding: EdgeInsets.only(top: 13, left: 10, right: 10, bottom: 1),
+      child: Container(
+        padding: EdgeInsets.all(8),
+        decoration: ShapeDecoration(
+          color: Color.fromARGB(90, 227, 226, 219),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
         ),
-      ],
+        child: Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: _tag2Img().image,
+              radius: 35.0,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _tag2Name(),
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                  Text(
+                    userTag,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

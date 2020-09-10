@@ -50,49 +50,57 @@ var usersWithoutTags = [
     'name': "Aditya L",
     'tag': "",
     'image': Image.asset('images/Avatar/Avatar1.jpg'),
-    'friends': <String>[]
+    'friends': <String>[],
+    'posts': <Map>[]
   },
   {
     'name': "A Friend",
     'tag': "",
     'image': Image.asset('images/Avatar/Avatar2.jpg'),
-    'friends': <String>[]
+    'friends': <String>[],
+    'posts': <Map>[]
   },
   {
     'name': "Nice Guy",
     'tag': "",
     'image': Image.asset('images/Avatar/Avatar3.jpg'),
-    'friends': <String>[]
+    'friends': <String>[],
+    'posts': <Map>[]
   },
   {
     'name': "Hello World",
     'tag': "",
     'image': Image.asset('images/Avatar/Avatar4.jpg'),
-    'friends': <String>[]
+    'friends': <String>[],
+    'posts': <Map>[]
   },
   {
     'name': "Another Friend",
     'tag': "",
     'image': Image.asset('images/Avatar/Avatar5.jpg'),
-    'friends': <String>[]
+    'friends': <String>[],
+    'posts': <Map>[]
   },
   {
     'name': " A Good Boy",
     'tag': "",
     'image': Image.asset('images/Avatar/Avatar6.jpg'),
-    'friends': <String>[]
+    'friends': <String>[],
+    'posts': <Map>[]
   },
   {
     'name': "An Unnamed Person",
     'tag': "",
     'image': Image.asset('images/Avatar/Avatar7.jpg'),
-    'friends': <String>[]
+    'friends': <String>[],
+    'posts': <Map>[]
   },
   {
     'name': "Bob the Builder",
     'tag': "",
     'image': Image.asset('images/Avatar/Avatar8.jpg'),
-    'friends': <String>[]
+    'friends': <String>[],
+    'posts': <Map>[]
   },
 ];
 

@@ -4,6 +4,7 @@ import 'dart:core';
 
 import '../main.dart';
 import '../widgets/uploader.dart';
+import '../widgets/info_card.dart';
 
 class NewPost extends StatelessWidget {
   static const IconData arrow_back_icon =
@@ -32,7 +33,14 @@ class NewPost extends StatelessWidget {
           IconButton(
             icon: Icon(info_icon),
             onPressed: () {
-              null;
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    content: InfoCard(),
+                  );
+                },
+              );
             },
           ),
         ],

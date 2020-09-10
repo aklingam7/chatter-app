@@ -7,6 +7,7 @@ import 'friends.dart';
 import 'new_post.dart';
 
 import '../widgets/post.dart';
+import '../widgets/info_card.dart';
 
 class Posts extends StatefulWidget {
   static const IconData add_icon =
@@ -153,7 +154,14 @@ class _PostsState extends State<Posts> {
           IconButton(
             icon: Icon(info_icon),
             onPressed: () {
-              null;
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    content: InfoCard(),
+                  );
+                },
+              );
             },
           ),
         ],

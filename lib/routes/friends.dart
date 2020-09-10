@@ -5,6 +5,7 @@ import 'dart:io';
 import 'posts.dart';
 
 import '../widgets/friend.dart';
+import '../widgets/info_card.dart';
 
 class Friends extends StatefulWidget {
   @override
@@ -61,7 +62,16 @@ class _FriendsState extends State<Friends> {
             actions: <Widget>[
               IconButton(
                 icon: Icon(info_icon),
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        content: InfoCard(),
+                      );
+                    },
+                  );
+                },
               ),
             ],
           ),
@@ -164,9 +174,12 @@ class _FriendsState extends State<Friends> {
                               onTap: () {
                                 Navigator.of(context).pop();
                               },
-                              child: CircleAvatar(
+                              child: FloatingActionButton(
                                 child: Icon(Icons.close),
                                 backgroundColor: Colors.red,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
                               ),
                             ),
                           ),

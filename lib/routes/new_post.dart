@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:core';
 
 import '../main.dart';
+import '../widgets/uploader.dart';
 
 class NewPost extends StatelessWidget {
   static const IconData arrow_back_icon =
@@ -114,6 +115,14 @@ class NewPost extends StatelessWidget {
                 ),
               ),
             ),
+            Container(
+                padding: EdgeInsets.only(
+                  left: 10,
+                  right: 10,
+                  top: 10,
+                  bottom: 1,
+                ),
+                child: PictureSelector()),
           ],
         ), //I'm here filling this with new post stuff
       ),

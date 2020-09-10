@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:core';
 import 'dart:io';
+import 'package:flutter/gestures.dart';
+
+import 'package:url_launcher/url_launcher.dart';
 
 import '../main.dart';
 
@@ -49,13 +52,33 @@ class InfoCard extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              "I plan on taking this forward by adding features like IM and more developed Parental Controls. Because my application is made using Google's Flutter, I can generate a native IOS Application, which I also plan on publishing. You can view the source code and new releases on my GitHub Repository.",
-              style: TextStyle(
-                fontSize: 14,
-                //fontWeight: FontWeight.bold,
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text:
+                        "I plan on taking this forward by adding features like IM and more developed Parental Controls. Because my application is made using Google's Flutter, I can generate a native IOS Application, which I also plan on publishing. You can view the source code and new releases on my ",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                  ),
+                  TextSpan(
+                    text: "GitHub Repository.",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        launch('https://github.com/aklingam7/chatter-app');
+                      },
+                  ),
+                ],
               ),
             ),
+
             //Padding(padding: EdgeInsets.only(bottom: 15)),
           ],
         ),

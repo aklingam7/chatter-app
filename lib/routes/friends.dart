@@ -13,8 +13,6 @@ class Friends extends StatefulWidget {
 }
 
 class _FriendsState extends State<Friends> {
-  var tagHelp = Image.asset('images/TagHelp.png');
-
   final _formKey = GlobalKey<FormState>();
 
   final passwordFieldController = TextEditingController();
@@ -167,22 +165,6 @@ class _FriendsState extends State<Friends> {
                       content: Stack(
                         overflow: Overflow.visible,
                         children: <Widget>[
-                          Positioned(
-                            right: -40.0,
-                            top: -40.0,
-                            child: InkResponse(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: FloatingActionButton(
-                                child: Icon(Icons.close),
-                                backgroundColor: Colors.red,
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ),
-                          ),
                           Form(
                             key: _formKey,
                             child: Column(

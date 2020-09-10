@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:chatter/widgets/guide_card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:splashscreen/splashscreen.dart';
@@ -19,7 +20,8 @@ const IconData posts_icon = IconData(58336, fontFamily: 'MaterialIcons');
 const IconData friends_icon = IconData(59375, fontFamily: 'MaterialIcons');
 const IconData info_icon = IconData(59534, fontFamily: 'MaterialIcons');
 
-Image logo = Image.asset('images/Logo.png');
+var logo = Image.asset('images/Logo.png');
+var tagHelp = Image.asset('images/TagHelp.png');
 
 List<Map<String, Object>> _addTags(List<Map<String, Object>> usersWithoutTags) {
   var rng = new Random();
@@ -147,8 +149,26 @@ class _MySplashscreenState extends State<MySplashscreen> {
 }
 
 class MyApp extends StatelessWidget {
+  bool firstBuild = true;
+
+  _showOpenDialog(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: GuideCard(),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (firstBuild) {
+        firstBuild = false;
+        _showOpenDialog(context);
+      }
+    });
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

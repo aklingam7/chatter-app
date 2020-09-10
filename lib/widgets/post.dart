@@ -120,6 +120,7 @@ class Post extends StatelessWidget {
               ],
             ),
             Container(
+              width: double.infinity,
               padding: EdgeInsets.all(10),
               child: Container(
                   padding: EdgeInsets.all(8),

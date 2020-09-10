@@ -10,6 +10,10 @@ class NewPost extends StatelessWidget {
   static const IconData check_icon =
       IconData(58826, fontFamily: 'MaterialIcons');
 
+  final Function setState;
+
+  NewPost(this.setState);
+
   final ptFieldController = TextEditingController();
 
   @override
@@ -45,6 +49,7 @@ class NewPost extends StatelessWidget {
                 //'image': ,
               },
             );
+            setState(() {});
             Navigator.pop(context);
           } else {
             showDialog(

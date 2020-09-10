@@ -6,6 +6,8 @@ import '../main.dart';
 import 'friends.dart';
 import 'new_post.dart';
 
+import '../widgets/post.dart';
+
 class Posts extends StatefulWidget {
   static const IconData add_icon =
       IconData(0xe145, fontFamily: 'MaterialIcons');
@@ -17,6 +19,131 @@ class Posts extends StatefulWidget {
 }
 
 class _PostsState extends State<Posts> {
+  Widget postList() {
+    List<int> displayingUsers = [currentUser];
+    List<Map> postsUnordered = [];
+    List<String> dateTimes;
+    List<Map> postsOrdered = [];
+    for (var jk in users[currentUser]['friends']) {
+      var done = false;
+      for (var m in users) {
+        if (m['tag'] == jk) {
+          done = true;
+          displayingUsers.add(users.indexOf(m));
+        }
+      }
+      if (done == false) {
+        throw "Error!";
+      }
+    }
+
+    print(displayingUsers);
+
+    for (var lt in displayingUsers) {
+      if ((users[lt]['posts'] as List<Map>).isNotEmpty) {
+        for (var jkl in users[lt]['posts']) {
+          var hkl = jkl;
+          hkl['user-index'] = lt;
+          hkl['post-index'] = (users[lt]['posts'] as List<Map>).indexOf(jkl);
+          postsUnordered.add(hkl);
+        }
+      }
+    }
+
+    print(postsUnordered);
+    print(postsUnordered != []);
+    print(postsUnordered.isNotEmpty);
+
+    if (postsUnordered.isNotEmpty) {
+      for (var post in postsUnordered) {
+        print((dateTimes == null).toString() + ".....");
+        //print(post[]);
+        if (dateTimes != null) {
+          dateTimes.add((post['date-time'] as DateTime).year.toString() +
+              (post['date-time'] as DateTime).month.toString() +
+              (post['date-time'] as DateTime).day.toString() +
+              (post['date-time'] as DateTime).hour.toString() +
+              (post['date-time'] as DateTime).minute.toString() +
+              (post['date-time'] as DateTime).second.toString() +
+              (post['date-time'] as DateTime).millisecond.toString());
+        } else {
+          print("wed");
+          dateTimes = [
+            ((post['date-time'] as DateTime).year.toString() +
+                (post['date-time'] as DateTime).month.toString() +
+                (post['date-time'] as DateTime).day.toString() +
+                (post['date-time'] as DateTime).hour.toString() +
+                (post['date-time'] as DateTime).minute.toString() +
+                (post['date-time'] as DateTime).second.toString() +
+                (post['date-time'] as DateTime).millisecond.toString())
+          ];
+          print("wed");
+        }
+      }
+
+      print(dateTimes);
+
+      dateTimes.sort((b, a) => a.toString().compareTo(b.toString()));
+
+      print(dateTimes);
+
+      for (var datetime in dateTimes) {
+        var done = false;
+        for (var thing in postsUnordered) {
+          if (datetime ==
+              ((thing['date-time'] as DateTime).year.toString() +
+                  (thing['date-time'] as DateTime).month.toString() +
+                  (thing['date-time'] as DateTime).day.toString() +
+                  (thing['date-time'] as DateTime).hour.toString() +
+                  (thing['date-time'] as DateTime).minute.toString() +
+                  (thing['date-time'] as DateTime).second.toString() +
+                  (thing['date-time'] as DateTime).millisecond.toString())) {
+            done = true;
+            postsOrdered.add(thing);
+          }
+        }
+        if (done == false) {
+          throw "Error! (2)";
+        }
+      }
+
+      print(postsOrdered.toString() + 'dd');
+
+      List<Widget> postWidgets = [];
+      for (var individualPost in postsOrdered) {
+        if (postWidgets.isNotEmpty) {
+          postWidgets.add(Post(users[individualPost['user-index']]['tag'],
+              individualPost['post-index']));
+        } else {
+          postWidgets = [
+            Post(users[individualPost['user-index']]['tag'],
+                individualPost['post-index'])
+          ];
+        }
+      }
+
+      print(postsOrdered.toString() + 'dd');
+
+      return Container(
+        width: double.infinity,
+        child: ListView(
+          children: postWidgets,
+        ),
+      );
+    } else {
+      return Center(
+        child: Text(
+          "Nothing here yet.",
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,10 +252,12 @@ class _PostsState extends State<Posts> {
         heroTag: "btn2",
         child: Icon(Posts.add_icon),
         onPressed: () async {
-          var navigationResult = await Navigator.push(
-              context, new MaterialPageRoute(builder: (context) => NewPost()));
+          var navigationResult = await Navigator.push(context,
+              new MaterialPageRoute(builder: (context) => NewPost(setState)));
 
-          //if (navigationResult == 'from_back') {
+          //if (navigationResult == 'from_button' ||
+          //navigationResult == 'from_back') {
+          //setState(() {});
           //Navigator.pop(context);
           //} else if (navigationResult == 'from_button') {
           //Navigator.pop(context);
@@ -140,14 +269,7 @@ class _PostsState extends State<Posts> {
           //}
         },
       ),
-      body: Container(
-        child: Center(
-          child: Text(
-            'Page 1',
-            style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
-          ),
-        ),
-      ),
+      body: postList(),
     );
   }
 }

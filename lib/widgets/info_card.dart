@@ -9,11 +9,10 @@ import '../main.dart';
 
 class InfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
-    return new Expanded(
-      flex: 1,
-      child: new SingleChildScrollView(
-        scrollDirection: Axis.vertical, //.horizontal
-        child: Column(
+    return AlertDialog(
+      content: Container(
+        width: double.maxFinite,
+        child: ListView(
           children: [
             Text(
               "Introduction: ",
@@ -78,8 +77,6 @@ class InfoCard extends StatelessWidget {
                 ],
               ),
             ),
-
-            //Padding(padding: EdgeInsets.only(bottom: 15)),
           ],
         ),
       ),

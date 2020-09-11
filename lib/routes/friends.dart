@@ -64,9 +64,7 @@ class _FriendsState extends State<Friends> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return AlertDialog(
-                        content: InfoCard(),
-                      );
+                      return InfoCard();
                     },
                   );
                 },

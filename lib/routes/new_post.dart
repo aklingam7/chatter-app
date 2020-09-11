@@ -36,9 +36,7 @@ class NewPost extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return AlertDialog(
-                    content: InfoCard(),
-                  );
+                  return InfoCard();
                 },
               );
             },

@@ -20,9 +20,6 @@ class MyImagePicker extends StatefulWidget {
 }
 
 class MyImagePickerState extends State {
-  static IconData camera_icon = IconData(58288, fontFamily: 'MaterialIcons');
-  static IconData gallery_icon = IconData(57937, fontFamily: 'MaterialIcons');
-
   File imageURI;
   static File postImage;
 

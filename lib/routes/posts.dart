@@ -157,9 +157,7 @@ class _PostsState extends State<Posts> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return AlertDialog(
-                    content: InfoCard(),
-                  );
+                  return InfoCard();
                 },
               );
             },

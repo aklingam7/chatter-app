@@ -19,6 +19,8 @@ void main() {
 const IconData posts_icon = IconData(58336, fontFamily: 'MaterialIcons');
 const IconData friends_icon = IconData(59375, fontFamily: 'MaterialIcons');
 const IconData info_icon = IconData(59534, fontFamily: 'MaterialIcons');
+const IconData camera_icon = IconData(58288, fontFamily: 'MaterialIcons');
+const IconData gallery_icon = IconData(57937, fontFamily: 'MaterialIcons');
 
 var logo = Image.asset('images/Logo.png');
 var tagHelp = Image.asset('images/TagHelp.png');
@@ -153,12 +155,11 @@ class MyApp extends StatelessWidget {
 
   _showOpenDialog(context) {
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: GuideCard(),
-          );
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return GuideCard();
+      },
+    );
   }
 
   @override
@@ -171,7 +172,7 @@ class MyApp extends StatelessWidget {
     });
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Chatter',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

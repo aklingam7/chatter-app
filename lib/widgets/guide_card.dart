@@ -6,11 +6,10 @@ import '../main.dart';
 
 class GuideCard extends StatelessWidget {
   Widget build(BuildContext context) {
-    return new Expanded(
-      flex: 1,
-      child: new SingleChildScrollView(
-        scrollDirection: Axis.vertical, //.horizontal
-        child: Column(
+    return AlertDialog(
+      content: Container(
+        width: double.maxFinite,
+        child: ListView(
           children: [
             Text(
               "Quick guide for the reviewers of my Application: ",
@@ -31,7 +30,7 @@ class GuideCard extends StatelessWidget {
             Image(
               image: tagHelp.image,
             ),
-            Padding(padding: EdgeInsets.only(bottom: 15)),
+            Padding(padding: EdgeInsets.only(bottom: 10)),
             Text(
               "Then go to the Friends Menu of the account you want to add that friend to, and enter his tag. The Parent's password is preset to 0743. \n\nAfter a few friends have been set up, you can imagine yourself as the owner of one of the accounts. \n\nGo to the Posts Menu, create a post, and then go to one of your friend's accounts to check if it is visible in their Posts Menu. \n\nView more info about the Application by tapping on the Info icon on the Appbar.",
               style: TextStyle(

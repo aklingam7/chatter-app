@@ -63,7 +63,7 @@ class InfoCard extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: "GitHub Repository.",
+                    text: "GitHub Repository",
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.blue,
@@ -73,6 +73,13 @@ class InfoCard extends StatelessWidget {
                       ..onTap = () {
                         launch('https://github.com/aklingam7/chatter-app');
                       },
+                  ),
+                  TextSpan(
+                    text: ".",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
                   ),
                 ],
               ),

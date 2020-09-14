@@ -21,6 +21,7 @@ const IconData friends_icon = IconData(59375, fontFamily: 'MaterialIcons');
 const IconData info_icon = IconData(59534, fontFamily: 'MaterialIcons');
 const IconData camera_icon = IconData(58288, fontFamily: 'MaterialIcons');
 const IconData gallery_icon = IconData(57937, fontFamily: 'MaterialIcons');
+const IconData close_icon = IconData(58825, fontFamily: 'MaterialIcons');
 
 var logo = Image.asset('images/Logo.png');
 var tagHelp = Image.asset('images/TagHelp.png');
@@ -135,7 +136,7 @@ class _MySplashscreenState extends State<MySplashscreen> {
   @override
   Widget build(BuildContext context) {
     return new SplashScreen(
-        seconds: 5,
+        seconds: 3,
         navigateAfterSeconds: new MyApp(),
         title: new Text(
           'Chatter',

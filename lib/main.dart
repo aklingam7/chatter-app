@@ -22,6 +22,7 @@ const IconData info_icon = IconData(59534, fontFamily: 'MaterialIcons');
 const IconData camera_icon = IconData(58288, fontFamily: 'MaterialIcons');
 const IconData gallery_icon = IconData(57937, fontFamily: 'MaterialIcons');
 const IconData close_icon = IconData(58825, fontFamily: 'MaterialIcons');
+const IconData swap_icon = IconData(59604, fontFamily: 'MaterialIcons');
 
 var logo = Image.asset('images/Logo.png');
 var tagHelp = Image.asset('images/TagHelp.png');
@@ -154,11 +155,12 @@ class _MySplashscreenState extends State<MySplashscreen> {
 class MyApp extends StatelessWidget {
   bool firstBuild = true;
 
-  _showOpenDialog(context) {
+  _showOpenDialog(dcontext) {
     showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return GuideCard();
+      barrierDismissible: false,
+      context: dcontext,
+      builder: (BuildContext econtext) {
+        return GuideCard(econtext);
       },
     );
   }

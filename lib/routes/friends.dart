@@ -6,6 +6,7 @@ import 'posts.dart';
 
 import '../widgets/friend.dart';
 import '../widgets/info_card.dart';
+import '../widgets/nav_drawer.dart';
 
 class Friends extends StatefulWidget {
   @override
@@ -62,9 +63,10 @@ class _FriendsState extends State<Friends> {
                 icon: Icon(info_icon),
                 onPressed: () {
                   showDialog(
+                    barrierDismissible: false,
                     context: context,
                     builder: (BuildContext context) {
-                      return InfoCard();
+                      return InfoCard(context);
                     },
                   );
                 },
@@ -72,7 +74,10 @@ class _FriendsState extends State<Friends> {
             ],
           ),
           drawer: Drawer(
-            child: ListView(
+            child: NavDrawer(setState, 1, friendscontext: context),
+
+            /*
+            ListView(
               padding: EdgeInsets.zero,
               children: <Widget>[
                 DrawerHeader(
@@ -89,7 +94,7 @@ class _FriendsState extends State<Friends> {
                           Spacer(),
                           FloatingActionButton(
                             heroTag: "btn3",
-                            child: Icon(Posts.swap_icon),
+                            child: Icon(swap_icon),
                             //width: 100,
                             onPressed: () => {
                               if ((currentUser + 1) != users.length)
@@ -151,12 +156,14 @@ class _FriendsState extends State<Friends> {
                   },
                 ),
               ],
-            ),
+            ), 
+            */
           ),
           floatingActionButton: FloatingActionButton(
             heroTag: "btn4",
             onPressed: () {
               showDialog(
+                barrierDismissible: false,
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(

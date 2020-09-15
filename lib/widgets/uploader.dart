@@ -63,8 +63,7 @@ class MyImagePickerState extends State {
                   ),
                   child: Text('No image selected.'),
                 )
-              : Image.file(imageURI,
-                  width: 300, height: 200, fit: BoxFit.cover),
+              : Image.file(imageURI, fit: BoxFit.cover),
           Padding(padding: EdgeInsets.all(10)),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

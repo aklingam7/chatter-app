@@ -34,9 +34,10 @@ class NewPost extends StatelessWidget {
             icon: Icon(info_icon),
             onPressed: () {
               showDialog(
+                barrierDismissible: false,
                 context: context,
                 builder: (BuildContext context) {
-                  return InfoCard();
+                  return InfoCard(context);
                 },
               );
             },

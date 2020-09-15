@@ -6,14 +6,13 @@ import '../main.dart';
 import 'friends.dart';
 import 'new_post.dart';
 
+import '../widgets/nav_drawer.dart';
 import '../widgets/post.dart';
 import '../widgets/info_card.dart';
 
 class Posts extends StatefulWidget {
   static const IconData add_icon =
       IconData(0xe145, fontFamily: 'MaterialIcons');
-  static const IconData swap_icon =
-      IconData(59604, fontFamily: 'MaterialIcons');
 
   @override
   _PostsState createState() => _PostsState();
@@ -155,9 +154,10 @@ class _PostsState extends State<Posts> {
             icon: Icon(info_icon),
             onPressed: () {
               showDialog(
+                barrierDismissible: false,
                 context: context,
                 builder: (BuildContext context) {
-                  return InfoCard();
+                  return InfoCard(context);
                 },
               );
             },
@@ -165,9 +165,13 @@ class _PostsState extends State<Posts> {
         ],
       ),
       drawer: Drawer(
-        child: ListView(
+        child: NavDrawer(setState, 0, postscontext: context),
+
+        /*
+        ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
+            //NavDrawer(setState, 0),
             DrawerHeader(
               child: Column(
                 children: [
@@ -182,7 +186,7 @@ class _PostsState extends State<Posts> {
                       Spacer(),
                       FloatingActionButton(
                         heroTag: "btn1",
-                        child: Icon(Posts.swap_icon),
+                        child: Icon(swap_icon),
                         //width: 100,
                         onPressed: () => {
                           if ((currentUser + 1) != users.length)
@@ -242,17 +246,13 @@ class _PostsState extends State<Posts> {
                 var navigationResult = await Navigator.push(context,
                     new MaterialPageRoute(builder: (context) => Friends()));
 
-                if (navigationResult == 'from_back') {
-                  Navigator.pop(context);
-                  setState(() {});
-                } else if (navigationResult == 'from_button') {
-                  Navigator.pop(context);
-                  setState(() {});
-                }
+                Navigator.pop(context);
+                setState(() {});
               },
             ),
           ],
         ),
+        */
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: "btn2",

@@ -66,7 +66,16 @@ class NewPost extends StatelessWidget {
               builder: (context) => AlertDialog(
                 title: Text("Error!"),
                 content: Text(
-                    'You need to write something in the Text Box before you try to post.'),
+                  'You need to write something in the Text Box before you try to post.',
+                ),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text('Okay'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
               ),
             );
           }

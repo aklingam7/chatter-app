@@ -9,6 +9,7 @@ import '../widgets/info_card.dart';
 import '../widgets/nav_drawer.dart';
 
 class Friends extends StatefulWidget {
+  static var sFriendsContext;
   @override
   _FriendsState createState() => _FriendsState();
 }
@@ -50,6 +51,7 @@ class _FriendsState extends State<Friends> {
 
   @override
   Widget build(BuildContext context) {
+    Posts.sPostsContext = context;
     return WillPopScope(
       onWillPop: () async {
         _popNavigationWithResult(context, 'from_back');
@@ -74,7 +76,13 @@ class _FriendsState extends State<Friends> {
             ],
           ),
           drawer: Drawer(
-            child: NavDrawer(setState, 1, friendscontext: context),
+            child: NavDrawer(
+              setState,
+              1,
+              postsSetState: Posts.sPostsSetState,
+              postscontext: Posts.sPostsContext,
+              friendscontext: context,
+            ),
 
             /*
             ListView(
@@ -167,6 +175,183 @@ class _FriendsState extends State<Friends> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text("Add the Friend"),
+                        onPressed: () {
+                          print(users.where(
+                                  (f) => f['tag'] == tagFieldController.text) ==
+                              null);
+                          if (passwordFieldController.text == pin) {
+                            //print("object-u");
+                            if (users[currentUser]['tag'] ==
+                                tagFieldController.text) {
+                              //print("object");
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: Text('Error!'),
+                                  content: Text(
+                                    'You can\'t add yourself as a friend.',
+                                  ),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text('Okay'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              );
+                            } else {
+                              var exists = false;
+                              for (var k in users) {
+                                print(((users[currentUser]['friends']
+                                                as List<String>)
+                                            .where((f) =>
+                                                f == tagFieldController.text)
+                                            .isNotEmpty)
+                                        .toString() +
+                                    " hi");
+                                print((users[currentUser]['friends']
+                                        as List<String>)
+                                    .where(
+                                        (f) => f == tagFieldController.text));
+                                if ((users[currentUser]['friends']
+                                        as List<String>)
+                                    .where((f) => f == tagFieldController.text)
+                                    .isNotEmpty) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: Text('Error!'),
+                                      content: Text(
+                                        'You already added ' +
+                                            k['name'] +
+                                            ' as a friend',
+                                      ),
+                                      actions: <Widget>[
+                                        FlatButton(
+                                          child: Text('Okay'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                  exists = true;
+                                  break;
+                                }
+                                if (k['tag'] == tagFieldController.text) {
+                                  (users[currentUser]['friends']
+                                          as List<String>)
+                                      .add(tagFieldController.text);
+                                  (users[users.indexOf(k)]['friends']
+                                          as List<String>)
+                                      .add(users[currentUser]['tag']);
+                                  exists = true;
+                                  Navigator.pop(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: Text('Added Friend!'),
+                                      content: Text(
+                                        (k['name'] as String) +
+                                            ' was added as a friend!' +
+                                            '😀',
+                                      ),
+                                      actions: <Widget>[
+                                        FlatButton(
+                                          child: Text('Okay'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                  break;
+                                }
+                              }
+                              if (exists == false) {
+                                var tempErrorMessageA =
+                                    (tagFieldController.text != "")
+                                        ? tagFieldController.text +
+                                            ' is not a valid tag!' +
+                                            ' 😥' +
+                                            '\nAn Example: #123456'
+                                        : null;
+
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: Text(
+                                      (tempErrorMessageA != null)
+                                          ? 'Invalid Tag!'
+                                          : 'Error!',
+                                    ),
+                                    content: Text(
+                                      (tempErrorMessageA ??
+                                          "You have not entered a Tag"),
+                                    ),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text('Okay'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                            }
+                          } else {
+                            var tempErrorMessageB = (passwordFieldController
+                                        .text !=
+                                    "")
+                                ? passwordFieldController.text +
+                                    ' is the wrong pin!' +
+                                    ' 😥' +
+                                    '\nNote to the reviewers of this app: the default pin is 0743'
+                                : null;
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text(
+                                  (tempErrorMessageB != null)
+                                      ? "Incorrect Pin!"
+                                      : "Error!",
+                                ),
+                                content: Text(
+                                  tempErrorMessageB ??
+                                      "You haven't entered a Pin",
+                                ),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text('Okay'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+
+                          tagFieldController.clear();
+                          passwordFieldController.clear();
+                          sleep(const Duration(milliseconds: 50));
+                          //print(users[currentUser]['friends']);
+                          setState(() {});
+                          tagFieldController.clear();
+                          passwordFieldController.clear();
+                          print('objectd');
+                        },
+                      ),
+                    ],
                     contentPadding: EdgeInsets.only(
                       left: 15,
                       right: 15,
@@ -199,6 +384,7 @@ class _FriendsState extends State<Friends> {
                           ),
                         ),
                         Container(
+                          width: double.maxFinite,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
@@ -209,61 +395,69 @@ class _FriendsState extends State<Friends> {
                                   child: Text(
                                     "Add a Friend:",
                                     style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
-                              Container(
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: EdgeInsets.all(1.0),
-                                        child: Text(
-                                          "What\'s my friends tag?",
-                                          //style: TextStyle(
-                                          //fontSize: 20,
-                                          //fontWeight: FontWeight.bold),
+                              //Expanded(
+                              //child:
+                              ListView(
+                                shrinkWrap: true,
+                                children: [
+                                  Container(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: EdgeInsets.all(1.0),
+                                          child: Text(
+                                            "What\'s my friends tag?",
+                                            //style: TextStyle(
+                                            //fontSize: 20,
+                                            //fontWeight: FontWeight.bold),
+                                          ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.all(3.0),
-                                        child: Image(
-                                          image: tagHelp.image,
+                                        Padding(
+                                          padding: EdgeInsets.all(3.0),
+                                          child: Image(
+                                            image: tagHelp.image,
+                                          ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          top: 18.0,
-                                          bottom: 1.0,
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                            top: 18.0,
+                                            bottom: 1.0,
+                                          ),
+                                          child: Text("Friend\'s Tag:"),
                                         ),
-                                        child: Text("Friend\'s Tag:"),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.all(1.0),
-                                        child: TextField(
-                                          controller: tagFieldController,
+                                        Padding(
+                                          padding: EdgeInsets.all(1.0),
+                                          child: TextField(
+                                            controller: tagFieldController,
+                                          ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          top: 18.0,
-                                          bottom: 1.0,
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                            top: 18.0,
+                                            bottom: 1.0,
+                                          ),
+                                          child: Text("Parent\'s Pin:"),
                                         ),
-                                        child: Text("Parent\'s password:"),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.all(1.0),
-                                        child: TextField(
-                                          controller: passwordFieldController,
+                                        Padding(
+                                          padding: EdgeInsets.all(1.0),
+                                          child: TextField(
+                                            controller: passwordFieldController,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
-                              Padding(
+                              //),
+                              /*Padding(
                                 padding: const EdgeInsets.all(1.0),
                                 child: RaisedButton(
                                   child: Text("Add the Friend!"),
@@ -283,7 +477,16 @@ class _FriendsState extends State<Friends> {
                                           builder: (context) => AlertDialog(
                                             title: Text('Error!'),
                                             content: Text(
-                                                'You can\'t add yourself as a friend'),
+                                              'You can\'t add yourself as a friend.',
+                                            ),
+                                            actions: <Widget>[
+                                              FlatButton(
+                                                child: Text('Okay'),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                            ],
                                           ),
                                         );
                                       } else {
@@ -313,9 +516,19 @@ class _FriendsState extends State<Friends> {
                                               builder: (context) => AlertDialog(
                                                 title: Text('Error!'),
                                                 content: Text(
-                                                    'You already added ' +
-                                                        k['name'] +
-                                                        ' as a friend'),
+                                                  'You already added ' +
+                                                      k['name'] +
+                                                      ' as a friend',
+                                                ),
+                                                actions: <Widget>[
+                                                  FlatButton(
+                                                    child: Text('Okay'),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                  ),
+                                                ],
                                               ),
                                             );
                                             exists = true;
@@ -335,10 +548,20 @@ class _FriendsState extends State<Friends> {
                                               context: context,
                                               builder: (context) => AlertDialog(
                                                 title: Text('Added Friend!'),
-                                                content: Text((k['name']
-                                                        as String) +
-                                                    ' was added as a friend!' +
-                                                    '😀'),
+                                                content: Text(
+                                                  (k['name'] as String) +
+                                                      ' was added as a friend!' +
+                                                      '😀',
+                                                ),
+                                                actions: <Widget>[
+                                                  FlatButton(
+                                                    child: Text('Okay'),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                  ),
+                                                ],
                                               ),
                                             );
                                             break;
@@ -346,15 +569,25 @@ class _FriendsState extends State<Friends> {
                                         }
                                         if (exists == false) {
                                           showDialog(
-                                              context: context,
-                                              builder: (context) => AlertDialog(
-                                                    title: Text('Invalid Tag!'),
-                                                    content: Text(tagFieldController
-                                                            .text +
-                                                        ' is not a valid tag!' +
-                                                        ' 😥' +
-                                                        '\nAn Example: #123456'),
-                                                  ));
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                              title: Text('Invalid Tag!'),
+                                              content: Text(
+                                                tagFieldController.text +
+                                                    ' is not a valid tag!' +
+                                                    ' 😥' +
+                                                    '\nAn Example: #123456',
+                                              ),
+                                              actions: <Widget>[
+                                                FlatButton(
+                                                  child: Text('Okay'),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          );
                                         }
                                       }
                                     } else {
@@ -368,6 +601,14 @@ class _FriendsState extends State<Friends> {
                                                 ' 😥' +
                                                 '\nNote to the reviewers of this app: the password is 0743',
                                           ),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              child: Text('Okay'),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
                                         ),
                                       );
                                     }
@@ -382,7 +623,7 @@ class _FriendsState extends State<Friends> {
                                     print('objectd');
                                   },
                                 ),
-                              ),
+                              ),*/
                             ],
                           ),
                         ),

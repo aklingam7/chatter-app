@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../main.dart';
 import 'friends.dart';
 import 'new_post.dart';
+import 'parental_ctrls.dart';
 
 import '../widgets/nav_drawer.dart';
 import '../widgets/post.dart';
@@ -13,6 +14,9 @@ import '../widgets/info_card.dart';
 class Posts extends StatefulWidget {
   static const IconData add_icon =
       IconData(0xe145, fontFamily: 'MaterialIcons');
+  static var sPostsContext;
+  static Function changeScreen;
+  static Function sPostsSetState;
 
   @override
   _PostsState createState() => _PostsState();
@@ -58,24 +62,54 @@ class _PostsState extends State<Posts> {
       for (var post in postsUnordered) {
         print((dateTimes == null).toString() + ".....");
         //print(post[]);
+        var tmpA =
+            ((post['date-time'] as DateTime).month.toString().length != 1)
+                ? (post['date-time'] as DateTime).month.toString()
+                : ('0' + (post['date-time'] as DateTime).month.toString());
+        var tmpB = ((post['date-time'] as DateTime).day.toString().length != 1)
+            ? (post['date-time'] as DateTime).day.toString()
+            : ('0' + (post['date-time'] as DateTime).day.toString());
+        var tmpC = ((post['date-time'] as DateTime).hour.toString().length != 1)
+            ? (post['date-time'] as DateTime).hour.toString()
+            : ('0' + (post['date-time'] as DateTime).hour.toString());
+        var tmpD =
+            ((post['date-time'] as DateTime).minute.toString().length != 1)
+                ? (post['date-time'] as DateTime).minute.toString()
+                : ('0' + (post['date-time'] as DateTime).minute.toString());
+        var tmpE =
+            ((post['date-time'] as DateTime).second.toString().length != 1)
+                ? (post['date-time'] as DateTime).second.toString()
+                : ('0' + (post['date-time'] as DateTime).second.toString());
+        var tmpFs = ((post['date-time'] as DateTime)
+                    .millisecond
+                    .toString()
+                    .length !=
+                1)
+            ? (((post['date-time'] as DateTime).millisecond.toString().length !=
+                    2)
+                ? ((post['date-time'] as DateTime).millisecond.toString())
+                : ('0' +
+                    (post['date-time'] as DateTime).millisecond.toString()))
+            : ('00' + (post['date-time'] as DateTime).millisecond.toString());
+
         if (dateTimes != null) {
           dateTimes.add((post['date-time'] as DateTime).year.toString() +
-              (post['date-time'] as DateTime).month.toString() +
-              (post['date-time'] as DateTime).day.toString() +
-              (post['date-time'] as DateTime).hour.toString() +
-              (post['date-time'] as DateTime).minute.toString() +
-              (post['date-time'] as DateTime).second.toString() +
-              (post['date-time'] as DateTime).millisecond.toString());
+              tmpA +
+              tmpB +
+              tmpC +
+              tmpD +
+              tmpE +
+              tmpFs);
         } else {
           print("wed");
           dateTimes = [
             ((post['date-time'] as DateTime).year.toString() +
-                (post['date-time'] as DateTime).month.toString() +
-                (post['date-time'] as DateTime).day.toString() +
-                (post['date-time'] as DateTime).hour.toString() +
-                (post['date-time'] as DateTime).minute.toString() +
-                (post['date-time'] as DateTime).second.toString() +
-                (post['date-time'] as DateTime).millisecond.toString())
+                tmpA +
+                tmpB +
+                tmpC +
+                tmpD +
+                tmpE +
+                tmpFs)
           ];
           print("wed");
         }
@@ -90,14 +124,50 @@ class _PostsState extends State<Posts> {
       for (var datetime in dateTimes) {
         var done = false;
         for (var thing in postsUnordered) {
+          var tmpA =
+              ((thing['date-time'] as DateTime).month.toString().length != 1)
+                  ? (thing['date-time'] as DateTime).month.toString()
+                  : ('0' + (thing['date-time'] as DateTime).month.toString());
+          var tmpB =
+              ((thing['date-time'] as DateTime).day.toString().length != 1)
+                  ? (thing['date-time'] as DateTime).day.toString()
+                  : ('0' + (thing['date-time'] as DateTime).day.toString());
+          var tmpC =
+              ((thing['date-time'] as DateTime).hour.toString().length != 1)
+                  ? (thing['date-time'] as DateTime).hour.toString()
+                  : ('0' + (thing['date-time'] as DateTime).hour.toString());
+          var tmpD =
+              ((thing['date-time'] as DateTime).minute.toString().length != 1)
+                  ? (thing['date-time'] as DateTime).minute.toString()
+                  : ('0' + (thing['date-time'] as DateTime).minute.toString());
+          var tmpE =
+              ((thing['date-time'] as DateTime).second.toString().length != 1)
+                  ? (thing['date-time'] as DateTime).second.toString()
+                  : ('0' + (thing['date-time'] as DateTime).second.toString());
+          var tmpFs = ((thing['date-time'] as DateTime)
+                      .millisecond
+                      .toString()
+                      .length !=
+                  1)
+              ? (((thing['date-time'] as DateTime)
+                          .millisecond
+                          .toString()
+                          .length !=
+                      2)
+                  ? ((thing['date-time'] as DateTime).millisecond.toString())
+                  : ('0' +
+                      (thing['date-time'] as DateTime).millisecond.toString()))
+              : ('00' +
+                  (thing['date-time'] as DateTime).millisecond.toString());
+
           if (datetime ==
               ((thing['date-time'] as DateTime).year.toString() +
-                  (thing['date-time'] as DateTime).month.toString() +
-                  (thing['date-time'] as DateTime).day.toString() +
-                  (thing['date-time'] as DateTime).hour.toString() +
-                  (thing['date-time'] as DateTime).minute.toString() +
-                  (thing['date-time'] as DateTime).second.toString() +
-                  (thing['date-time'] as DateTime).millisecond.toString())) {
+                  tmpA +
+                  tmpB +
+                  tmpC +
+                  tmpD +
+                  tmpE +
+                  tmpFs)) {
             done = true;
             postsOrdered.add(thing);
           }
@@ -146,6 +216,48 @@ class _PostsState extends State<Posts> {
 
   @override
   Widget build(BuildContext context) {
+    Posts.sPostsContext = context;
+    Posts.sPostsSetState = setState;
+
+    Posts.changeScreen = (int curScr) async {
+      if (curScr == 0) {
+        var navigationResult = await Navigator.push(
+          context,
+          new MaterialPageRoute(
+            builder: (context) => ParentalControls(),
+          ),
+        );
+        print(1);
+        setState(() {});
+        print(2);
+        Navigator.pop(context);
+        print(3);
+      } else if (curScr == 1) {
+        print('jjjkobject');
+        var navigationResult = await Navigator.push(
+          context,
+          new MaterialPageRoute(
+            builder: (context) => ParentalControls(),
+          ),
+        );
+        setState(() {});
+        NavDrawer.rpop();
+      } else if (curScr == 2) {
+        //NavDrawer.rpop();
+        print('jjjkobject');
+        var navigationResult = await Navigator.push(
+          context,
+          new MaterialPageRoute(
+            builder: (context) => Friends(),
+          ),
+        );
+        setState(() {});
+        NavDrawer.rpop();
+      } else {
+        print("ERRRRROR!");
+      }
+    };
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Posts'),

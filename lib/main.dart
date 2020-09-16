@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:io';
 
 import 'package:chatter/widgets/guide_card.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,8 @@ void main() {
 
 const IconData posts_icon = IconData(58336, fontFamily: 'MaterialIcons');
 const IconData friends_icon = IconData(59375, fontFamily: 'MaterialIcons');
+//const IconData pctrl_icon = IconData(60225, fontFamily: 'MaterialIcons');
+const IconData pctrl_icon = IconData(59545, fontFamily: 'MaterialIcons');
 const IconData info_icon = IconData(59534, fontFamily: 'MaterialIcons');
 const IconData camera_icon = IconData(58288, fontFamily: 'MaterialIcons');
 const IconData gallery_icon = IconData(57937, fontFamily: 'MaterialIcons');
@@ -125,6 +128,15 @@ var users = _addTags(usersWithoutTags);
 
 var currentUser = 0;
 
+var pin = '0743';
+var pinRequired4Add = true;
+var pinRequired4Accept = true;
+var searchAllowed = false;
+
+//var guideNotRead = true;
+
+final createPinFieldController = TextEditingController();
+
 //var avatar1 = Image.asset('images/Avatar/Avatar1.jpg');
 //var avatar2 = Image.asset('images/Avatar/Avatar2.jpg');
 
@@ -159,10 +171,73 @@ class MyApp extends StatelessWidget {
     showDialog(
       barrierDismissible: false,
       context: dcontext,
+      builder: (context) => AlertDialog(
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Set'),
+            onPressed: () {
+              pin = createPinFieldController.text;
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+        content: Stack(
+          children: <Widget>[
+            /*Positioned(
+              right: 0.0,
+              child: GestureDetector(
+                onTap: () {
+                  createPinFieldController.clear();
+                  Navigator.of(context).pop();
+                },
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: CircleAvatar(
+                    radius: 14.0,
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.close, color: Colors.blue),
+                  ),
+                ),
+              ),
+            ),*/
+            Container(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: double.maxFinite,
+                    padding: EdgeInsets.all(7.0),
+                    child: Text(
+                      "Please Set a Pin:",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  TextField(
+                    controller: createPinFieldController,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: dcontext,
       builder: (BuildContext econtext) {
         return GuideCard(econtext);
       },
     );
+    print('objectsyf');
+
+    //sleep(const Duration(milliseconds: 950));
   }
 
   @override

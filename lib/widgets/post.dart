@@ -15,6 +15,7 @@ class Post extends StatelessWidget {
   File _image;
   String _time;
   String _date;
+  String _tptime;
 
   Post(this._userTag, this._postIndex) {
     var tag = _userTag;
@@ -50,6 +51,7 @@ class Post extends StatelessWidget {
         (_userMap['posts'][_postIndex]['date-time'] as DateTime)
             .minute
             .toString();
+    this._tptime = _time;
   }
 
   @override
@@ -110,7 +112,12 @@ class Post extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        _time,
+                        (_tptime.split(':')[1].length != 1)
+                            ? _tptime
+                            : (_tptime.split(':')[0] +
+                                ':' +
+                                '0' +
+                                _tptime.split(':')[1]),
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontSize: 12,

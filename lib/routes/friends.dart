@@ -23,11 +23,17 @@ class _FriendsState extends State<Friends> {
   static const IconData add_friend_icon =
       IconData(59376, fontFamily: 'MaterialIcons');
 
-  Widget friendsList() {
+  Widget friendsList(Function rSetState) {
     if ((users[currentUser]['friends'] as List<String>).length != 0) {
       List<Widget> list = [];
       for (var c in users[currentUser]['friends']) {
-        list.add(Friend(userTag: c));
+        list.add(
+          Friend(
+            userTag: c,
+            mode: 0,
+            setState: rSetState,
+          ),
+        );
       }
       return Container(
         width: double.infinity,
@@ -37,27 +43,113 @@ class _FriendsState extends State<Friends> {
       );
     } else {
       return Center(
-        child: Text(
-          "You havn\'t added any friends.",
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: Text(
+            "You haven\'t added any friends.",
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
         ),
       );
     }
   }
 
+  Widget friendsInboxList(Function rSetState) {
+    if ((users[currentUser]['friends-inbox'] as List<String>).length != 0) {
+      List<Widget> list = [];
+      for (var c in users[currentUser]['friends-inbox']) {
+        list.add(
+          Friend(
+            userTag: c,
+            mode: 1,
+            setState: rSetState,
+          ),
+        );
+      }
+      return Container(
+        width: double.infinity,
+        child: ListView(
+          children: list,
+        ),
+      );
+    } else {
+      return Center(
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: Text(
+            "No friend requests right now.",
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    }
+  }
+
+  Widget friendsOutboxList(Function rSetState) {
+    if ((users[currentUser]['friends-outbox'] as List<String>).length != 0) {
+      List<Widget> list = [];
+      for (var c in users[currentUser]['friends-outbox']) {
+        list.add(
+          Friend(
+            userTag: c,
+            mode: 2,
+            setState: rSetState,
+          ),
+        );
+      }
+      return Container(
+        width: double.infinity,
+        child: ListView(
+          children: list,
+        ),
+      );
+    } else {
+      return Center(
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: Text(
+            "You haven\'t sent any friend requests.",
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    }
+  }
+
+  Widget friendsContent;
+  Widget inboxContent;
+  Widget outboxContent;
+
+  _FriendsState() {}
+
   @override
   Widget build(BuildContext context) {
+    this.friendsContent = friendsList(setState);
+    this.inboxContent = friendsInboxList(setState);
+    this.outboxContent = friendsOutboxList(setState);
+
     Posts.sPostsContext = context;
+
     return WillPopScope(
       onWillPop: () async {
         _popNavigationWithResult(context, 'from_back');
         return false;
       },
-      child: Scaffold(
+      child: DefaultTabController(
+        length: 3,
+        child: Scaffold(
           appBar: AppBar(
             title: Text('Friends'),
             actions: <Widget>[
@@ -74,6 +166,34 @@ class _FriendsState extends State<Friends> {
                 },
               ),
             ],
+            bottom: TabBar(
+              tabs: <Widget>[
+                Tab(
+                  child: Column(
+                    children: <Widget>[
+                      Icon(Icons.group),
+                      Text("Friends"),
+                    ],
+                  ),
+                ),
+                Tab(
+                  child: Column(
+                    children: <Widget>[
+                      Icon(Icons.inbox),
+                      Text("Inbox"),
+                    ],
+                  ),
+                ),
+                Tab(
+                  child: Column(
+                    children: <Widget>[
+                      Icon(Icons.send),
+                      Text("Outbox"),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
           drawer: Drawer(
             child: NavDrawer(
@@ -244,23 +364,53 @@ class _FriendsState extends State<Friends> {
                                   exists = true;
                                   break;
                                 }
+
+                                if ((users[currentUser]['friends-outbox']
+                                        as List<String>)
+                                    .where((f) => f == tagFieldController.text)
+                                    .isNotEmpty) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: Text('Error!'),
+                                      content: Text(
+                                        'You already sent a friend request to ' +
+                                            k['name'] +
+                                            '.',
+                                      ),
+                                      actions: <Widget>[
+                                        FlatButton(
+                                          child: Text('Okay'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                  exists = true;
+                                  break;
+                                }
+
                                 if (k['tag'] == tagFieldController.text) {
-                                  (users[currentUser]['friends']
+                                  (users[currentUser]['friends-outbox']
                                           as List<String>)
                                       .add(tagFieldController.text);
-                                  (users[users.indexOf(k)]['friends']
+                                  (users[users.indexOf(k)]['friends-inbox']
                                           as List<String>)
                                       .add(users[currentUser]['tag']);
+
                                   exists = true;
                                   Navigator.pop(context);
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      title: Text('Added Friend!'),
+                                      title: Text('Request Sent!'),
                                       content: Text(
-                                        (k['name'] as String) +
-                                            ' was added as a friend!' +
-                                            '😀',
+                                        'A friend request was sent to ' +
+                                            (k['name'] as String) +
+                                            '!' +
+                                            ' 😀',
                                       ),
                                       actions: <Widget>[
                                         FlatButton(
@@ -642,7 +792,15 @@ class _FriendsState extends State<Friends> {
             },
             child: Icon(add_friend_icon),
           ),
-          body: friendsList()),
+          body: TabBarView(
+            children: <Widget>[
+              friendsContent,
+              inboxContent,
+              outboxContent,
+            ],
+          ),
+        ),
+      ),
     );
   }
 

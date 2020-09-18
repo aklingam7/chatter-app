@@ -71,6 +71,8 @@ var usersWithoutTags = [
     'tag': "",
     'image': Image.asset('images/Avatar/Avatar1.jpg'),
     'friends': <String>[],
+    'friends-inbox': <String>[],
+    'friends-outbox': <String>[],
     'posts': <Map>[]
   },
   {
@@ -78,6 +80,8 @@ var usersWithoutTags = [
     'tag': "",
     'image': Image.asset('images/Avatar/Avatar2.jpg'),
     'friends': <String>[],
+    'friends-inbox': <String>[],
+    'friends-outbox': <String>[],
     'posts': <Map>[]
   },
   {
@@ -85,6 +89,8 @@ var usersWithoutTags = [
     'tag': "",
     'image': Image.asset('images/Avatar/Avatar3.jpg'),
     'friends': <String>[],
+    'friends-inbox': <String>[],
+    'friends-outbox': <String>[],
     'posts': <Map>[]
   },
   {
@@ -92,6 +98,8 @@ var usersWithoutTags = [
     'tag': "",
     'image': Image.asset('images/Avatar/Avatar4.jpg'),
     'friends': <String>[],
+    'friends-inbox': <String>[],
+    'friends-outbox': <String>[],
     'posts': <Map>[]
   },
   {
@@ -99,6 +107,8 @@ var usersWithoutTags = [
     'tag': "",
     'image': Image.asset('images/Avatar/Avatar5.jpg'),
     'friends': <String>[],
+    'friends-inbox': <String>[],
+    'friends-outbox': <String>[],
     'posts': <Map>[]
   },
   {
@@ -106,6 +116,8 @@ var usersWithoutTags = [
     'tag': "",
     'image': Image.asset('images/Avatar/Avatar6.jpg'),
     'friends': <String>[],
+    'friends-inbox': <String>[],
+    'friends-outbox': <String>[],
     'posts': <Map>[]
   },
   {
@@ -113,6 +125,8 @@ var usersWithoutTags = [
     'tag': "",
     'image': Image.asset('images/Avatar/Avatar7.jpg'),
     'friends': <String>[],
+    'friends-inbox': <String>[],
+    'friends-outbox': <String>[],
     'posts': <Map>[]
   },
   {
@@ -120,6 +134,8 @@ var usersWithoutTags = [
     'tag': "",
     'image': Image.asset('images/Avatar/Avatar8.jpg'),
     'friends': <String>[],
+    'friends-inbox': <String>[],
+    'friends-outbox': <String>[],
     'posts': <Map>[]
   },
 ];
@@ -130,6 +146,7 @@ var currentUser = 0;
 
 var pin = '0743';
 var pinRequired4Add = true;
+var pinRequired4Del = true;
 var pinRequired4Accept = true;
 var searchAllowed = false;
 

@@ -137,7 +137,7 @@ class NavDrawer extends StatelessWidget {
                                   Navigator.pop(postscontext);
                                   print(0);
                                   Posts.changeScreen(0);
-                                  Navigator.of(context).pop();
+
                                   print(4);
                                 } else {
                                   var tempErrorMessageB = (pinFieldController

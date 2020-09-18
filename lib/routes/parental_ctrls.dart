@@ -159,6 +159,22 @@ class _ParentalControlsState extends State<ParentalControls> {
             Card(
               child: ListTile(
                 //selected: true,
+                title: Text('Require Pin for deleting a friend'),
+                trailing: Container(
+                  //alignment: Alignment.centerRight,
+                  child: Switch(
+                    value: pinRequired4Del,
+                    onChanged: (bool newValue) {
+                      pinRequired4Del = newValue;
+                      setState(() {});
+                    },
+                  ),
+                ),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                //selected: true,
                 title: Text('Require Pin for accepting a friend request:'),
                 trailing: Container(
                   //alignment: Alignment.centerRight,

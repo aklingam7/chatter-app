@@ -1,4 +1,4 @@
-# chatter
+# Chatter
 
 A simple Social Media Platform for Children
 
